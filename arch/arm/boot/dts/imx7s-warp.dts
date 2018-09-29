@@ -50,9 +50,37 @@
 	model = "Warp i.MX7 Board";
 	compatible = "warp,imx7s-warp", "fsl,imx7s";
 
+	aliases {
+                /* the following, together with kernel patches, forces a fixed assignment
+                   between device id and usdhc controller */
+                /* i.e. the eMMC on usdhc3 will be /dev/mmcblk0 */
+                mmc0 = &usdhc3; /* eMMC */
+        };
+
 	memory {
 		reg = <0x80000000 0x20000000>;
 	};
+
+	reserved-memory {
+                #address-cells = <1>;
+                #size-cells = <1>;
+                ranges;
+
+                rpmsg_reserved: rpmsg@8fff0000 {
+                        no-map;
+                        reg = <0x8fff0000 0x100000>;
+                };
+        };
+
+
+	chosen {
+                stdout-path = "serial0:115200n8";
+        };
+
+	m4_tcm: tcml@007f8000 {
+                compatible = "fsl, m4_tcml";
+                reg = <0x007f8000 0x8000>;
+        };
 
 	gpio-keys {
 		compatible = "gpio-keys";
@@ -258,7 +286,7 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_uart1>;
 	assigned-clocks = <&clks IMX7D_UART1_ROOT_SRC>;
-	assigned-clock-parents = <&clks IMX7D_PLL_SYS_MAIN_240M_CLK>;
+	assigned-clock-parents = <&clks IMX7D_OSC_24M_CLK>;
 	status = "okay";
 };
 
@@ -266,7 +294,7 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_uart3>;
 	assigned-clocks = <&clks IMX7D_UART3_ROOT_SRC>;
-	assigned-clock-parents = <&clks IMX7D_PLL_SYS_MAIN_240M_CLK>;
+	assigned-clock-parents = <&clks IMX7D_OSC_24M_CLK>;
 	uart-has-rtscts;
 	status = "okay";
 };
@@ -443,4 +471,14 @@
 			MX7D_PAD_GPIO1_IO00__WDOD1_WDOG_B	0x74
 		>;
 	};
+};
+
+&ocram {
+        reg = <0x00901000 0xf000>;
+};
+
+&rpmsg {
+        vdev-nums = <1>;
+        reg = <0x8fff0000 0x10000>;
+        status = "okay";
 };
