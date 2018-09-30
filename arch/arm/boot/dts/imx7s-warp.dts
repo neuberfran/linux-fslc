@@ -323,8 +323,8 @@
 	assigned-clocks = <&clks IMX7D_USDHC3_ROOT_CLK>;
 	assigned-clock-rates = <400000000>;
 	bus-width = <8>;
-	fsl,tuning-step = <2>;
 	non-removable;
+	sdhci-caps-mask = <0x80000000 0x0>;
 	status = "okay";
 };
 
@@ -430,7 +430,7 @@
 			MX7D_PAD_SD3_DATA5__SD3_DATA5		0x59
 			MX7D_PAD_SD3_DATA6__SD3_DATA6		0x59
 			MX7D_PAD_SD3_DATA7__SD3_DATA7		0x59
-			MX7D_PAD_SD3_RESET_B__SD3_RESET_B	0x19
+			MX7D_PAD_SD3_STROBE__SD3_STROBE		0x19
 		>;
 	};
 
@@ -446,7 +446,7 @@
 			MX7D_PAD_SD3_DATA5__SD3_DATA5		0x5a
 			MX7D_PAD_SD3_DATA6__SD3_DATA6		0x5a
 			MX7D_PAD_SD3_DATA7__SD3_DATA7		0x5a
-			MX7D_PAD_SD3_RESET_B__SD3_RESET_B	0x1a
+			MX7D_PAD_SD3_STROBE__SD3_STROBE		0x1a
 		>;
 	};
 
@@ -462,7 +462,7 @@
 			MX7D_PAD_SD3_DATA5__SD3_DATA5		0x5b
 			MX7D_PAD_SD3_DATA6__SD3_DATA6		0x5b
 			MX7D_PAD_SD3_DATA7__SD3_DATA7		0x5b
-			MX7D_PAD_SD3_RESET_B__SD3_RESET_B	0x1b
+			MX7D_PAD_SD3_STROBE__SD3_STROBE		0x1b
 		>;
 	};
 
